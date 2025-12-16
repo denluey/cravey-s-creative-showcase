@@ -54,8 +54,9 @@ color: black;
 }
 
 .header  {
-	background-color: ghostwhite;
+	background-color: darkblue;
 	text: black;
+	font-size: 100px;
 	margin: -10px;
 	padding: 5px;
 	border: 4px solid;
@@ -164,6 +165,45 @@ color: black;
   border: 2px solid white;
   background: black;   
 }
+
+#rightScroller {
+  position: fixed;
+  top: 20px;             /* floats lower, like a window */
+  right: 50px;           /* floats away from the edge */
+  width: 600px;          /* floating window width */
+  height: 750px;         /* visible window height */
+  overflow: hidden;      /* THIS is what hides images outside the window */
+  
+  background: #081a4b;   /* dark-blue panel background */
+  border: 4px solid white;
+
+    /* floating effect */
+  padding: 15px;
+  z-index: 999;          /* stays above your navigation */
+}
+
+#scrollContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: scrollUp 15s linear infinite;
+}
+
+#rightScroller img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid white;
+  background: black;
+}
+
+/* infinite upward scrolling animation */
+@keyframes scrollUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
 
 
 

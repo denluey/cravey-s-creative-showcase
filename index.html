@@ -32,8 +32,8 @@
 			border: 4px solid;
 		}
 		#imageGallery button {
-			background: darkblue;
-			color: white;
+			background: white;
+			color: darkblue;
 			border: 2px solid darkblue;
 			cursor: pointer;
 			padding: 5px 10px;
@@ -43,11 +43,17 @@
 	</style>
 </head>
 
+<div id="rightScroller">
+  <div id="scrollContent">
+    <!-- Images will be injected by JavaScript -->
+  </div>
+</div>
+
 <body>
 <div class="flexParent">
 	<div>
 		<div class="header">
-			<p style = "color: black" >> Luke Cravey Portfolio Site</p>
+			<p style = "color; black" >> Craven Things</p>
 			<nav>
 		</div>
 
@@ -57,15 +63,7 @@
 		<div class="wall"></div>
 
 		<!-- Design Section -->
-		<div class="dropdown">
-			<div class="projects">
-				<button>> Design</button>
-				<ul>
-					<li><button>> 3D Modeling</button></li>
-					<li><button><a href="#">> Illustration</a></button></li>
-				</ul>
-			</div>
-		</div>
+		
 	</div>
 
 	<div class="dropdown">
@@ -78,6 +76,16 @@
 			</ul>
 		</div>
 	</div>
+
+	<div class="dropdown">
+			<div class="projects">
+				<button>> Design</button>
+				<ul>
+					<li><button>> 3D Modeling</button></li>
+					<li><button>> 2D Design</button></li>
+				</ul>
+			</div>
+		</div>
 
 	</nav>
 	</div>
@@ -103,9 +111,9 @@
 	const sectionInfo = {
 	  "About": {
 	    text: "Luke Cravey is a game designer, illustrator, 3D modeler, and animator. Given a Wii at a young impressionable age, Luke had no choice but to become obsessed with games, art, and game design for the rest of his life. Luke studies integrated design and media at NYU Tandon where he has honed his abilities to code, design, and model. He has worked on multiple smaller games and is currently working on publishing a game as part of an indie game studio.",
-	    image: "images/about.png"
+	    image: "images/face.jpg"
 	  },
-	  "Illustration": {
+	  "2D Design": {
 	    text: "I also draw stuff",
 	    images: [
 	      "images/bluegirl.png",
@@ -118,7 +126,7 @@
 	  },
 	  "3D Modeling": {
 	    text: "I 3D model",
-	    images: [
+	    images: [ 
 	      "images/skiermodel.jpg",
 	      "images/snowmmodel.jpg",
 	      "images/skiermodelpose.jpg",
@@ -180,23 +188,55 @@
 	          };
 	          image.style.display = 'none';
 	        } else {
-	          // Fallback for single image sections
-	          image.src = content.image;
-	          image.style.display = content.image ? 'block' : 'none';
-	        }
+  // Fallback for single image sections
+  image.src = content.image;
+
+  if (content.image && content.image.includes("face.jpg")) {
+    image.style.width = "250px";   // face size
+    image.style.margin = "10px auto";
+    image.style.display = "block";
+  } else {
+    image.style.width = "100%";    // all other images
+    image.style.display = content.image ? 'block' : 'none';
+  }
+}
 
 	        panel.classList.add('open');
 	      });
 	    }
 	  });
 	}
-
+// Ignore dropdown headers
+document.querySelectorAll('.projects > button').forEach(btn => {
+    btn.dataset.ignore = "true";
+});
 	addPanelTrigger('a');
 	addPanelTrigger('button');
 
 	closeBtn.addEventListener('click', () => {
 		panel.classList.remove('open');
 	});
+
+	const rightScroller = document.getElementById("scrollContent");
+
+// Pick whatever images you want scrolling here
+const scrollingImages = [
+  "images/bluegirl.png",
+  "images/yellowman.png",
+  "images/guitarist.png",
+  "images/gunpose.png",
+  "images/robohead.png",
+  "images/sideprofile.png",
+  "images/skiermodel.jpg",
+  "images/snowmmodel.jpg"
+];
+
+// Add each image twice so it loops seamlessly
+scrollingImages.concat(scrollingImages).forEach(src => {
+  const img = document.createElement("img");
+  img.src = src;
+  rightScroller.appendChild(img);
+});
 </script>
 
 </body>
