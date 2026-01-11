@@ -1,12 +1,142 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Gamepad2, Palette, Box, User, FileText, Folder } from "lucide-react";
+import Taskbar from "@/components/Taskbar";
+import SlidingPanel from "@/components/SlidingPanel";
+import DesktopIcon from "@/components/DesktopIcon";
+
+interface SectionInfo {
+  text: string;
+  image?: string;
+  images?: string[];
+  link?: { url: string; label: string };
+}
+
+const sectionInfo: Record<string, SectionInfo> = {
+  About: {
+    text: "Luke Cravey is a game designer, illustrator, 3D modeler, and animator. Given a Wii at a young impressionable age, Luke had no choice but to become obsessed with games, art, and game design for the rest of his life.<br><br>Luke studies integrated design and media at NYU Tandon where he has honed his abilities to code, design, and model. He has worked on multiple smaller games and is currently working on publishing a game as part of an indie game studio.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
+  },
+  "2D Design": {
+    text: "A collection of 2D illustrations and character designs. From concept art to finished pieces, these works showcase a range of styles and techniques.",
+    images: [
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&h=400&fit=crop",
+    ],
+  },
+  "3D Modeling": {
+    text: "3D character models and environments created for games and animations. Featuring both stylized and realistic approaches.",
+    images: [
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=600&h=400&fit=crop",
+    ],
+  },
+  "Robo Cave Adventure": {
+    text: 'Simple platforming game about a broken robot escaping a cave.<br><br><a href="https://denluey.itch.io/roboalone" target="_blank" class="text-highlight hover:underline">&gt; Play Robo Alone on itch.io</a>',
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop",
+  },
+  "Talking is Hard": {
+    text: 'A game about the difficulty of conversing with other people.<br><br><a href="https://denluey.itch.io/talking-is-hard" target="_blank" class="text-highlight hover:underline">&gt; Play Talking Is Hard on itch.io</a>',
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+  },
+  Skijoring: {
+    text: 'In progress game about a skier being pulled down a mountain by a friend on a snowmobile.<br><br><a href="https://store.steampowered.com/app/4023240/Skijoring/" target="_blank" class="text-highlight hover:underline">&gt; View Skijoring on Steam</a>',
+    images: [
+      "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=600&h=400&fit=crop",
+    ],
+  },
+};
 
 const Index = () => {
+  const [activePanel, setActivePanel] = useState<string | null>(null);
+
+  const handleOpenPanel = (section: string) => {
+    if (section === "Gaming Projects") {
+      // Open first game project
+      setActivePanel("Robo Cave Adventure");
+    } else {
+      setActivePanel(section);
+    }
+  };
+
+  const handleClosePanel = () => {
+    setActivePanel(null);
+  };
+
+  const desktopIcons = [
+    { icon: User, label: "About Me", section: "About" },
+    { icon: Gamepad2, label: "Robo Cave", section: "Robo Cave Adventure" },
+    { icon: Gamepad2, label: "Talking is Hard", section: "Talking is Hard" },
+    { icon: Gamepad2, label: "Skijoring", section: "Skijoring" },
+    { icon: Palette, label: "2D Design", section: "2D Design" },
+    { icon: Box, label: "3D Models", section: "3D Modeling" },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background pb-12 relative overflow-hidden">
+      {/* Desktop Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            hsl(var(--foreground)) 2px,
+            hsl(var(--foreground)) 4px
+          )`
+        }} />
       </div>
+
+      {/* Header */}
+      <header className="retro-border bg-primary m-4 p-4">
+        <h1 className="font-display text-4xl md:text-6xl text-highlight">
+          &gt; Craven Things_<span className="animate-blink">|</span>
+        </h1>
+        <p className="text-muted-foreground mt-2 font-body text-sm">
+          Game Design • Illustration • 3D Modeling • Animation
+        </p>
+      </header>
+
+      {/* Desktop Icons Grid */}
+      <main className="p-4 relative z-10">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          {desktopIcons.map((item) => (
+            <DesktopIcon
+              key={item.section}
+              icon={item.icon}
+              label={item.label}
+              onClick={() => handleOpenPanel(item.section)}
+            />
+          ))}
+        </div>
+
+        {/* Quick Info Card */}
+        <div className="mt-8 retro-border bg-card p-6 max-w-2xl">
+          <h2 className="font-display text-2xl text-highlight mb-4">&gt; Welcome</h2>
+          <p className="text-foreground leading-relaxed">
+            Click on the icons above or use the taskbar below to explore my portfolio.
+            Each icon opens a window with more information about that project or skill.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <span className="retro-border-inset bg-muted px-3 py-1 text-sm">React</span>
+            <span className="retro-border-inset bg-muted px-3 py-1 text-sm">Unity</span>
+            <span className="retro-border-inset bg-muted px-3 py-1 text-sm">Blender</span>
+            <span className="retro-border-inset bg-muted px-3 py-1 text-sm">Procreate</span>
+          </div>
+        </div>
+      </main>
+
+      {/* Sliding Panel */}
+      <SlidingPanel
+        isOpen={activePanel !== null}
+        onClose={handleClosePanel}
+        title={activePanel || ""}
+        content={activePanel ? sectionInfo[activePanel] : null}
+      />
+
+      {/* Taskbar */}
+      <Taskbar onOpenPanel={handleOpenPanel} activePanel={activePanel} />
     </div>
   );
 };
