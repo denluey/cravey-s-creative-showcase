@@ -5,6 +5,7 @@ interface SectionInfo {
   text: string;
   image?: string;
   images?: string[];
+  video?: string;
   link?: { url: string; label: string };
 }
 
@@ -51,8 +52,24 @@ const SlidingPanel = ({ isOpen, onClose, title, content }: SlidingPanelProps) =>
 
       {/* Content */}
       <div className="p-6">
+        {/* Video */}
+        {content.video && (
+          <div className="mb-6">
+            <div className="retro-border-inset bg-background p-2">
+              <video
+                src={content.video}
+                controls
+                autoPlay
+                loop
+                muted
+                className="w-full h-auto max-h-80"
+              />
+            </div>
+          </div>
+        )}
+
         {/* Image Gallery */}
-        {images.length > 0 && (
+        {!content.video && images.length > 0 && (
           <div className="mb-6">
             <div className="retro-border-inset bg-background p-2">
               <img

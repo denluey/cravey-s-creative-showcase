@@ -19,11 +19,13 @@ import snowmmodelImg from "@/assets/snowmmodel.jpg";
 import snowmomodelposeImg from "@/assets/snowmomodelpose.jpg";
 import talkImg from "@/assets/talk.gif";
 import yellowmanImg from "@/assets/yellowman.png";
+import logoMotionVid from "@/assets/logo_motion.mp4";
 
 interface SectionInfo {
   text: string;
   image?: string;
   images?: string[];
+  video?: string;
   link?: { url: string; label: string };
 }
 
@@ -39,6 +41,10 @@ const sectionInfo: Record<string, SectionInfo> = {
   "3D Modeling": {
     text: "3D character models and environments created for games and animations. Featuring both stylized and realistic approaches.",
     images: [threeDModeImg, skiermodelImg, skiermodeiposeImg, snowmmodelImg],
+  },
+  "Motion Graphics": {
+    text: "Animated logos, motion design, and visual effects. Bringing static designs to life with movement and energy.",
+    video: logoMotionVid,
   },
   "Robo Cave Adventure": {
     text: 'Simple platforming game about a broken robot escaping a cave.<br><br><a href="https://denluey.itch.io/roboalone" target="_blank" class="text-highlight hover:underline">&gt; Play Robo Alone on itch.io</a>',
