@@ -24,7 +24,7 @@ const Taskbar = ({ onOpenPanel, activePanel }: TaskbarProps) => {
 
   const menuItems = [
     { name: "Gaming Projects", icon: Gamepad2, submenu: ["Robo Cave Adventure", "Talking is Hard", "Skijoring"] },
-    { name: "Design", icon: Palette, submenu: ["2D Design", "3D Modeling"] },
+    { name: "Design", icon: Palette, submenu: ["2D Design", "3D Modeling", "Motion Graphics"] },
   ];
 
   return (
